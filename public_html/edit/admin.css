@@ -1,0 +1,174 @@
+
+a {
+	display:block;
+}
+
+ul, li, fieldset, form, label, legend,
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+ul {
+	padding:0 10px 10px;
+	margin-top:0;
+}
+
+/*
+	*
+	*
+	* Styleguide overrides
+	* Body HTML Content
+	* 
+	*
+	*/
+body {
+    
+	max-width:100%;
+	width:100%;
+}
+
+	/*
+	*
+	*
+	* Styleguide overrides
+	* Lists, Menus, etc
+	* 
+	*
+	*/
+	
+ul {
+    float: none;
+	padding:0;
+}
+li {
+    display: block;
+	padding:10px;
+	margin:0px;
+}
+
+/*
+	*
+	*
+	* Form Elements
+	* 
+	* 
+	*
+	*/
+input:focus {
+    border: 2px solid #39c ;
+    box-shadow: 0 0 5px #535362 ;
+    outline: medium none ;
+}
+
+textarea {
+	background: white none repeat scroll 0 0 ;
+    border: 1px solid #f8f8f8;
+    padding: 12px;
+	border-radius: 12px;
+	transition: box-shadow 0.1s cubic-bezier(0.3, 0, 0, 1.2) 0s, border-color 0.1s cubic-bezier(0.3, 0, 0, 1.2) 0s, border-radius 0.1s cubic-bezier(0.3, 0, 0, 1.2) 0s;
+	display:block;
+	min-height:90px;
+	min-width:95%;
+	margin-bottom:12px;
+}
+textarea:focus {
+    border: 2px solid #39c;
+    box-shadow: 0 0 5px #535362;
+    outline: medium none;
+}
+#paragraphSingleArea p {
+	min-height:90px;
+}
+/*
+	*
+	*
+	* Admin Panel
+	* Columns, Control Styles
+	* 
+	*
+	*/
+.editPostSelectOption {
+
+	float:right;
+	margin-top:20px;
+	width:300px;	
+	
+}
+.controlSurface div:first-child {
+
+	margin-top:0;	
+	
+}
+.surfaceWidget {
+	margin:12px 0;
+	background-color:#f8f2d9;
+	
+}
+.editSurface {
+	background-color: #aaa;
+	padding:16px;
+}
+	
+header {
+	min-height:80px;
+}
+
+.imageDropBucketArea {
+
+	min-height:60px;
+	background-image:url(images/dropimage.png);
+	background-position: center;
+	background-repeat:no-repeat;
+	border:2px dashed #787878;
+	border-radius:12px;	
+	
+}
+.imageDropBucketArea.dragEnter {
+
+	border-radius:12px;
+	border:2px solid #39c;
+}
+.imageDropBucketArea img {
+	width:190px;
+	margin-left:1.4%;
+}
+.articleSubtitle input {
+	width:100%;
+	padding-left: 2px;
+	padding-right:0;
+}
+#emojitext {
+	width:100%;
+	padding-left: 0;
+	padding-right:0;
+}
+.paragraphEditAreaControlsMenu {
+
+}
+#HTMLToggle {
+	float:right;
+}
+.action:hover {
+	cursor:pointer;
+	text-decoration:underline;
+	background-color:#fef0d2;
+}
+#emojitextwrapper i.fa:hover {
+	cursor:pointer;
+}
+@media handheld and (max-width: 1200px), screen and (max-width: 1200px) {
+  body {
+    padding:0 1%;
+	width:98%;
+  }
+  .col4-8 {
+	  float:right;
+	   margin-left: 1.4%;
+    	width: 68%;
+  }
+  
+}

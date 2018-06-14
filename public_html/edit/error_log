@@ -1,0 +1,2 @@
+[21-Feb-2016 07:36:29 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/jarvisfosdick/public_html/admin/requestHandler.php on line 16
+[21-Feb-2016 09:37:25 UTC] PHP Fatal error:  Cannot use object of type stdClass as array in /home/jarvisfosdick/public_html/admin/requestHandler.php on line 25

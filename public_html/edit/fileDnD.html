@@ -1,0 +1,164 @@
+
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link href="../css/normal-reset.css" type="text/css" rel="stylesheet">
+<link href="../css/styleguide.css" type="text/css" rel="stylesheet">
+<link href="../css/grid.css" type="text/css" rel="stylesheet">
+<link href="admin.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+</head><body>
+ <div id="imageDropBucketArea" class="imageDropBucketArea">
+                            
+                            <input type="file" id="handleUpLoadFiles" multiple accept="image/*" style="display:none" >
+                            
+                    </div>
+                    <p><i id="addAnotherImage" class="fa fa-image"></i></p>
+                    
+               
+               
+               <div id="imageDropBucketAreaB" class="imageDropBucketArea">
+                            
+                            <input type="file" id="handleUpLoadFilesB" multiple accept="image/*" style="display:none" >
+                            
+                    </div>
+                    <p><i id="addAnotherImageB" class="fa fa-image"></i></p>
+                    
+                         
+
+
+<script type="text/javascript">// Drag and Drop Image Upload
+	
+		"use strict";
+	
+	var fileDnD = function() {
+		
+		this.addPostFilesUploaded = [];
+
+		this.dropImageUpload = function(event) {
+			
+		  var dt = event.dataTransfer;
+		  var files = dt.files;
+		  this.processFileUpload(files);
+		 
+		
+		}
+		this.processFileUpload = function(files) {
+			//console.log(files);
+			 var count = files.length;
+			 
+			 var el = this._config.dropArea;
+			 
+			for (var i = 0; i < files.length; i++) {
+				this.addPostFilesUploaded.push(files[i]);
+				
+				var img = document.createElement("img");
+				img.classList.add("obj");
+				img.file = files[i];
+				el.appendChild(img);
+				
+				
+				var reader = new FileReader();
+				reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+				reader.readAsDataURL(files[i]);
+				
+			
+			}
+			el.className = el.className.replace(/\s?dragEnter/g,'');
+		}
+		this.getFiles = function() {
+			return this.addPostFilesUploaded;
+		}
+		this.setElementEvents = function(_config) {
+		
+			this._config = _config;	
+			var that = this;
+			_config.hiddenInput.addEventListener("change", function() {
+				
+				that.addPostFilesUploaded.push(this.files);
+				that.processFileUpload(this.files);
+				
+			}, false);//hidden element for upload with click and not drag drop
+			_config.dropArea.addEventListener("dragenter", function(event) {
+				event.stopPropagation()
+				event.preventDefault()
+				event.target.className += ' dragEnter';
+				
+			}, false);
+			
+			_config.dropArea.addEventListener("dragleave", function(event) {
+				event.stopPropagation()
+				event.preventDefault();
+				console.log(event.target);
+				event.target.className = event.target.className.replace(/\s?dragEnter/g,'')
+				
+			}, false);
+			
+			_config.dropArea.addEventListener("dragover", function(event) {
+				event.stopPropagation()
+				event.preventDefault()		
+			}, false);
+			_config.dropArea.addEventListener("drop", function(event) {
+				event.stopPropagation()
+				event.preventDefault()
+				that.dropImageUpload(event);
+				
+			}, false);
+			
+			
+			_config.hiddenInput.addEventListener("dragenter", function(event) {
+				event.stopPropagation()
+				event.preventDefault()
+				
+			}, false);
+			_config.hiddenInput.addEventListener("dragover", function(event) {
+				event.stopPropagation()
+				event.preventDefault()
+				
+			}, false);
+			_config.displayButton.addEventListener("click", function(event) {
+				_config.hiddenInput.click();
+				event.preventDefault();
+				event.stopPropagation();
+				
+			}, false);
+		}
+	}
+	
+	var fileDnD1 = new fileDnD;
+	var _config = {
+		//el id - drop area
+		dropArea : document.getElementById("imageDropBucketArea"),
+		//el id - hidden input
+		hiddenInput : document.getElementById("handleUpLoadFiles"),
+		//el id - display button, for input
+		displayButton : 	document.getElementById("addAnotherImage"),
+		
+		//addPostFilesUploaded : []
+	
+	}
+	fileDnD1.setElementEvents(_config)
+	
+	
+	var fileDnD2 = new fileDnD;
+	var _config2 = {
+		//el id - drop area
+		dropArea : document.getElementById("imageDropBucketAreaB"),
+		//el id - hidden input
+		hiddenInput : document.getElementById("handleUpLoadFilesB"),
+		//el id - display button, for input
+		displayButton : 	document.getElementById("addAnotherImageB"),
+		
+		//addPostFilesUploaded : []
+	
+	}
+	fileDnD2.setElementEvents(_config2);
+	
+	
+	
+	
+</script>
+</body></html>

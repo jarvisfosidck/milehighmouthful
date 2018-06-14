@@ -1,0 +1,276 @@
+<!doctype html>
+<html>
+<head>
+<title>Mile High Mouthful</title>
+<script src="../data/blogposts/data.js"></script>
+<script src="../js/angular.js"></script>
+<script src="../js/angular-sanitize.min.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script src="../js/fileDnD.js"></script>
+<script src="../js/controllers.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript">
+
+
+		var formData = new FormData();
+		basicREST('checkIN', formData,function(r) {
+			//console.log(r.responseText);
+			if (r.responseText == "pass") {
+				
+			} else {
+				window.location = "../";	
+			}
+			
+		});
+		
+
+</script>
+<meta charset="UTF-8">
+<title>Add New Post</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<link href="../css/normal-reset.css" type="text/css" rel="stylesheet">
+<link href="../css/styleguide.css" type="text/css" rel="stylesheet">
+<link href="../css/grid.css" type="text/css" rel="stylesheet">
+<link href="admin.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link href='https://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+<style type="text/css">
+
+
+@media (max-width: 668px) {
+	
+	
+	/*
+	*
+	*
+	* Not much here just a few style edits
+	* 
+	* 
+	*
+	*/
+	
+	.col2-8, .col4-8 {
+		float:none;
+		width:100%;
+		margin-left:0;
+	}
+	#emojitextwrapper div.row {
+		width:50%;
+		float:left;
+		margin-top:0;
+	}
+	#emojitextwrapper {
+		min-height:60px;
+  
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+<a name="top"></a>
+<div class="row">
+<header>
+
+
+<div class="col2-8"><h1>Manage Posts</h1>
+<a href="../">Mile High Mouthful</a>
+<a href="../staging.html">Preview Posts</a>
+</div>
+
+
+<div class="col4-8">
+<select ng-app="mouthfulApp" ng-controller="mouthfulAdminCtrl" ng-model="selectOption" ng-change="updateEditAreaContent(this)" id="editPostSelectOption" class="editPostSelectOption">
+<option selected>Select Post to Edit</option>
+<option value="addNewPost">Add New</option>
+<option ng-repeat="post in posts" value="{{$index}}">{{post.postTitle}}</option>
+
+</select>
+
+
+
+
+</div>
+
+<div class="col2-8">
+<!--<select><option>Widget Types</option></select>-->
+&nbsp;
+</div>
+
+</header>
+</div>
+
+
+<div class="row">
+<main>
+<div class="col2-8 controlSurface">
+
+			<div class="surfaceWidget mainMenuControls">
+                <ul>
+                <!--<li><a class="action" href="index.html">Admin Home</a></li>-->
+                <li class="action" ><a id="saveThisPost">Save</a></li>
+                <li class="action"><a  id="deleteThisPost">Delete</a></li>
+                </ul>
+            </div>
+            
+            <div class="surfaceWidget">
+            	<h5>Emoji Hashtag</h5>
+                <ul>
+                    <li><a class="label">Type Text click Icon</a></li>
+                    <li><input id="emojitext"></li>
+                    <li>
+                        <div id="emojitextwrapper">
+                        
+                        	<div class='row'>
+                            <span class='col1-4'><i class="fa fa-check-square-o"></i></span>
+                            <span class='col1-4'><i class="fa fa-flash"></i></span>
+                            <span class='col1-4'><i class="fa fa-hashtag"></i></span>
+                            <span class='col1-4'><i class="fa fa-plus-circle"></i></span>
+                            </div>
+                            <div class='row'>
+                            <span class='col1-4'><i class="fa fa-star-half-empty"></i></span>
+                            <span class='col1-4'><i class="fa fa-trophy"></i></span>
+                            <span class='col1-4'><i class="fa fa-thumbs-o-down"></i></span>
+                            <span class='col1-4'><i class="fa fa-thumbs-up"></i></span>
+                            </div>
+                            <div class='row'>
+                            <span class='col1-4'><i class="fa fa-venus-mars"></i></span>
+                            <span class='col1-4'><i class="fa fa-mars-double"></i></span>
+                            <span class='col1-4'><i class="fa fa-venus"></i></span>
+                            <span class='col1-4'><i class="fa fa-ambulance"></i></span>
+                            </div>
+                            <div class='row'>
+                            <span class='col1-4'><i class="fa fa-warning"></i></span>
+                            <span class='col1-4'><i class="fa fa-spinner"></i></span>
+                            <span class='col1-4'><i class="fa fa-dollar"></i></span>
+                            <span class='col1-4'><i class="fa fa-balance-scale"></i></span>
+                        	</div>
+                    </div>
+                
+                </li>
+                
+                </ul>
+            </div>
+
+</div>
+
+<div class="col4-8">
+<div class=" editSurface" id="editTemplateSwapPlace">
+
+<!-- the following inner HTML, inclusive of the next div is identical to add-post-new-post-template.html -->
+<div class="">
+                    <div class="row">
+                        <h2 class="articleTitle"><input id="postTitle" placeholder="Section Title" value=""></h2>
+                        <span class="articleDisplayDate"><span class="date"><input id="postDisplayDate" placeholder="Feb. 19, 2016" value=""></span></span>
+                    </div>
+                    
+                    <h4 class="articleSubtitle"><input id="postSubTitle" placeholder="Sub Title Caption" value=""></h4>
+                    
+                    <div id="paragraphEditArea" class="paragraphEditArea">
+                        <div class="paragraphEditAreaControlsMenu row">
+                            <span id="paragraphToggle"><i class="fa fa-file-text-o"></i></span>
+                            <span id="HTMLToggle"><i class="fa fa-html5"></i></span>
+                        </div>
+                        <div id="paragraphSingleArea">
+                            <textarea>When you need a natural facelift try this in your home spa! The main ingredient in this face mask is egg white. It tightens the skin and reduces the appearance of pores. Combined with some of nature's own moisturizers you will get a lovely cinderella mask.</textarea>
+                            
+                            </div>
+                            <p id="addParagraphControl"><i class="fa fa-plus-square fa-1"></i></p>
+                       
+                    </div>
+                    
+                    <div id="imageDropBucketArea" class="imageDropBucketArea">
+                     <input type="file" id="handleUpLoadFiles" multiple accept="image/*" style="display:none" >
+                            
+                    </div>
+                    <p><i id="addAnotherImage" class="fa fa-image"></i></p>
+                    
+                    <p class="bottomStarIcons" id="bottomStarIcons">
+                    <label><i class="fa fa-heart"></i><i class="fa fa-heart"></i><i class="fa fa-heart"></i></label>
+                    <input type="hidden" id="heartsSelected" value="3">
+                    <i id="heartsdown" class="fa fa-chevron-down"></i>
+                    <i id="heartsup" class="fa fa-chevron-up"></i>
+                    
+                    </p>
+            
+<div id="emojiMouthfulBlurgs">
+
+</div>
+<!-- end new post template html -->
+
+<p><input id="resturantWebsite" placeholder="Resturant url" value=""></p>
+<p><input id="resturantNeighborHood" placeholder="Neighborhood" value=""></p>
+
+</div>
+
+
+</div></div><!--end middle col4-8 -->
+
+
+            <div class="col2-8">
+                <!-- empty column space -->
+            </div>
+
+</main></div>
+
+<footer>
+
+<p class="footerToolbar"><a href="#top" id="backToTop">Top<i class="fa fa-level-up"></i></a></p>
+<hr>
+<div class="disclosure">
+<p> www.MileHighMouthful.com (c) 2016.  All rights reserved.</p>
+</div>
+</footer>
+<script type="text/javascript">
+
+
+function assignDashBoardClicks() {
+	
+	var addPostClickItems = [
+	"deleteThisPost"
+	
+	,"saveThisPost"
+	
+	];
+	
+	for (var i=0,len=addPostClickItems.length;i<len;i++) {
+		if(angular.isDefined(addPostClickItems[i])) {
+			addPostClickItems[i] = document.getElementById(addPostClickItems[i]);
+			
+			addPostClickItems[i].addEventListener("click", function (e) { 
+				handleClicksEvents.call(this,e);//defined in add-post.js
+			});
+		}
+	
+	}
+	
+}assignDashBoardClicks();
+
+
+function defineFileDragandDrop() {
+	window.fileDnD1 = new fileDnD;
+	var _config = {
+		//el id - drop area
+		dropArea : document.getElementById("imageDropBucketArea"),
+		//el id - hidden input
+		hiddenInput : document.getElementById("handleUpLoadFiles"),
+		//el id - display button, for input
+		displayButton : 	document.getElementById("addAnotherImage"),
+		
+		//addPostFilesUploaded : []
+	
+	}
+	fileDnD1.setElementEvents(_config);
+}
+	</script>
+<script src="add-post.js"></script>
+<script src="adminControllers.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html ng-app="mouthfulApp">
+<head>
+<title>Mile High Mouthful</title>
+<script src="../js/bootstrap.js"></script>
+<!--
+<script src="js/angular.js"></script>
+<script src="js/angular-sanitize.min.js"></script>
+<script src="data/blogposts/data.js"></script>
+<script src="js/controllers.js"></script>
+-->
+<link href="../css/grid.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<head>
+<meta charset="UTF-8">
+<title>Admin Login</title>
+<link href="../css/grid.css" type="text/css" rel="stylesheet">
+
+<style type="text/css">
+
+.row {
+	
+}
+body {
+	background:#000;
+}
+.row span {
+	border:1px solid #282828;
+	background-color:#373A2A;
+	display:inline-block;
+	min-height:200px;	
+}
+
+
+</style>
+</head>
+<body id="loginSurface">
+
+
+
+
+<div class='row'>
+
+<span id='sq11' class='col1-4'>&nbsp;</span>
+
+<span id='sq12' class='col1-4'>&nbsp;</span>
+
+<span id='sq13' class='col1-4'>&nbsp;</span>
+
+<span id='sq14' class='col1-4'>&nbsp;</span>
+
+</div>
+
+<div class='row'>
+
+<span id='sq21' class='col1-4'>&nbsp;</span>
+
+<span id='sq22' class='col1-4'>&nbsp;</span>
+
+<span id='sq23' class='col1-4'>&nbsp;</span>
+
+<span id='sq24' class='col1-4'>&nbsp;</span>
+
+</div>
+
+<div class='row'>
+
+<span id='sq31' class='col1-4'>&nbsp;</span>
+
+<span id='sq32' class='col1-4'>&nbsp;</span>
+
+<span id='sq33' class='col1-4'>&nbsp;</span>
+
+<span id='sq34' class='col1-4'>&nbsp;</span>
+
+</div>
+
+<div class='row'>
+
+<span id='sq41' class='col1-4'>&nbsp;</span>
+
+<span id='sq42' class='col1-4'>&nbsp;</span>
+
+<span id='sq43' class='col1-4'>&nbsp;</span>
+
+<span id='sq44' class='col1-4'>&nbsp;</span>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+	/*
+	*
+	* Define login surface events and event handlers
+	* Entire surface is login area
+	* 
+	*/
+
+window.allTouches = [];
+window.startStopPos = [];
+
+function _elP(x,y) {
+	return document.elementFromPoint(x,y);
+}
+
+function assignClicksLocal() {
+
+	var surfaceEventSpace = ["loginSurface"];
+
+	document.getElementById("loginSurface").addEventListener("touchstart", function (e) { 
+		window.startStopPos.push([e.touches[0].pageX,e.touches[0].pageY]);
+	},false);
+	
+	document.getElementById("loginSurface").addEventListener("touchmove", function (e) { 
+		window.startStopPos[1] = [e.touches[0].pageX,e.touches[0].pageY];
+	},false);
+	document.getElementById("loginSurface").addEventListener("touchend", function (e) { 
+		var e1 = _elP(window.startStopPos[0][0],window.startStopPos[0][1]);
+		var e2 = _elP(window.startStopPos[1][0],window.startStopPos[1][1]);
+		var s = String(e1.id) + String(e2.id);
+		pssCodeV(s);
+	},false);
+	
+	
+var surfaceSquares = document.querySelectorAll("#loginSurface span");
+window.globalSequenceTracker = "";
+for (var i=0,len=surfaceSquares.length;i<len;i++) {
+	span = surfaceSquares[i];
+	span.addEventListener("mousedown", function (e) { 
+		surfaceEvents.call(this,e);
+	},false);
+	span.addEventListener("mouseup", function (e) { 
+		checkSurfaceState.call(this,e);
+	},false);
+}
+} assignClicksLocal();
+
+function addMouseOver() {
+	for (var i=0,len=surfaceSquares.length;i<len;i++) {
+		span = surfaceSquares[i];
+		span.addEventListener("mouseover", function (e) { 
+			surfaceEvents.call(this,e);	
+		},false);
+	}
+}
+function removeMouseOver() {
+	for (var i=0,len=surfaceSquares.length;i<len;i++) {
+		span = surfaceSquares[i];
+		span.removeEventListener("mouseover", function (e) { 
+				
+		},false);
+	}
+}
+
+
+function surfaceEvents(e) {
+	
+		window.allTouches.push(this.id);
+	
+}
+function pssCodeV(s) {
+	
+	var re = /^sq23sq24$/;//should be removed for actually security
+	if (re.test(s)) {//along with this, but it's here for development purposes now.
+		var formData = new FormData();
+		formData.append("cookieCode", "cookieCode");
+		formData.append("stringSent",s);
+		
+		basicREST('cookieCode', formData,function() {
+			
+			if (this.responseText = "pass") {
+				window.location = "add-post.html";
+			} else {
+				window.allTouches = [];
+				window.startStopPos = [];
+			}
+			
+		});
+	} else {
+		
+	}
+}
+function checkSurfaceState() {
+	window.allTouches.push(this.id);
+	//alert(window.allTouches);
+	
+	var ems = window.allTouches;
+	var t = {};
+	for (var j=0,len=ems.length;j<len;j++) {
+		t[ems[j]] = ems[j];
+	}
+	var s = "";
+	for(var i in t) {
+		s += t[i];
+	//	console.log(t[i]);
+	}
+	
+	pssCodeV(s);
+	
+}
+
+
+
+</script>
+
+
+
+</body>
+</html>

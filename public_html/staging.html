@@ -1,0 +1,76 @@
+<!doctype html>
+<html ng-app="mouthfulApp">
+<head>
+<title>Mile High Mouthful</title>
+<script src="js/angular.js"></script>
+<script src="js/angular-sanitize.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="edit/staging/data.js"></script>
+<script src="js/controllers.js"></script>
+<link href="css/normal-reset.css" type="text/css" rel="stylesheet">
+<link href="css/styleguide.css" type="text/css" rel="stylesheet">
+<link href="css/grid.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+</head>
+
+<body>
+<a name="top"></a>
+<header><div class="titleblock">
+<h1>Mile High Mouthful</h1>
+
+<h3>Words about eating out.</h3>
+</div>
+
+</header>
+
+<menu>
+
+<div class="row menu">
+<ul><li><a href="index.html">main</a></li><li><a href="about.html">about</a></li><li><label> Search: <input type="text" ng-model="query"> </label></li></ul>
+</div></menu>
+<hr>
+<main>
+
+<section>
+
+<div ng-controller="mouthfulCtrl" >
+<div ng-repeat="post in posts | orderBy:postDisplayDate:true">
+<article >
+<div class="row">
+<h2 class="col3-4">{{post.postTitle}}</h2>
+<span class="col1-4"><span class="date">{{post.postDisplayDate}}</span></span>
+</div>
+
+<h4>{{post.postSubTitle}}</h4>
+
+<div class="paragraphEditArea" ng-bind-html="post.paragraphSingleArea()"></div>
+
+<p class="row" ng-bind-html="post.docURLs()"></p>
+
+<p class="bottomStarIcons" ng-bind-html="post.heartsSelected()"></p>
+
+<div class="emojiMouthfulBlurgs">
+<div ng-bind-html="post.emojiMouthfulBlurgs()"></div>
+
+</div>
+
+
+</article>
+<hr>
+</div>
+</div>
+
+</section></main>
+
+<footer>
+
+<p class="footerToolbar"><a href="#top" id="backToTop">Top<i class="fa fa-level-up"></i></a></p>
+<hr>
+<div class="disclosure">
+<p> www.MileHighMouthful.com (c) 2016.  All rights reserved.</p>
+</div>
+</footer>
+</body>
+</html>

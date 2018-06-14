@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<title>Mile High Mouthful</title>
+
+<link href="../css/normal-reset.css" type="text/css" rel="stylesheet">
+<link href="../css/styleguide.css" type="text/css" rel="stylesheet">
+<link href="../css/grid.css" type="text/css" rel="stylesheet">
+<style type="text/css">
+#timer {
+	color:#398838;
+}
+</style>
+
+</head>
+
+<body>
+
+
+<h1>Demo Page Has Moved..</h1>
+<h2>You will be redirected in <span id="timer"> 6 </span> seconds to the login page</h2>
+<script type="text/javascript">
+
+(function() {
+		var timer = document.getElementById('timer');
+		
+		var cnt = 6;
+		window.setInterval(function() {	
+			timer.innerHTML = cnt;
+			cnt--;
+			if (cnt == 0) {
+				window.location = "../edit/";	
+			}
+			
+		},1000);
+		
+})();
+
+</script>
+</body>
+
+</html>

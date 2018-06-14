@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+<title>Editor In Cheif | Mile High Mouthful</title>
+<script src="../js/bootstrap.js"></script>
+
+<link href="../css/normal-reset.css" type="text/css" rel="stylesheet">
+<link href="../css/styleguide.css" type="text/css" rel="stylesheet">
+<link href="../css/grid.css" type="text/css" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<head>
+<meta charset="UTF-8">
+<title>Admin Login</title>
+
+<style type="text/css">
+
+.row {
+	margin:0;
+}
+body {
+	background:#aaa;
+	margin:0 auto;
+	max-width:420px;
+}
+.row input {
+	border:1px solid #787878;
+	background-color:#bfbfbf;
+	display:inline-block;
+	min-height:120px;
+	width:100%;	
+	border-radius:50%;
+	
+
+	
+
+}
+.row input:focus, .row input:hover  {
+	border:1px solid #4D9530;
+	cursor:pointer;
+	border-radius:50%;
+	background-color:#d4d4d4;
+	
+}
+input:focus {outline:0;}
+
+
+
+</style>
+</head>
+<body id="loginSurface">
+
+
+<h1>Editor-in-Cheif SignOn</h1>
+
+
+
+<div class='row'>
+<span class='col1-4'><input type='button' id='sq11' tabindex="1" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq12' tabindex="2" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq13' tabindex="3" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq14' tabindex="4" >&nbsp;</input></span>
+</div>
+<div class='row'>
+<span class='col1-4'><input type='button' id='sq21' tabindex="5" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq22' tabindex="6" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq23' tabindex="7" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq24' tabindex="8" >&nbsp;</input></span>
+</div>
+<div class='row'>
+<span class='col1-4'><input type='button' id='sq31' tabindex="9" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq32' tabindex="10" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq33' tabindex="11" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq34' tabindex="12" >&nbsp;</input></span>
+</div>
+<div class='row'>
+<span class='col1-4'><input type='button' id='sq41' tabindex="13" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq42' tabindex="14" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq43' tabindex="15" >&nbsp;</input></span>
+<span class='col1-4'><input type='button' id='sq44' tabindex="16" >&nbsp;</input></span>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+
+	/*
+	*
+	* Define login surface events and event handlers
+	* Entire surface is login area
+	* 
+	*/
+
+(function() {
+	
+	"use strict"
+	var loginPage = {},input;
+	loginPage.allTouches = [];
+	loginPage.startStopPos = [];
+	
+	function assignClicksLocal() {
+	
+		var surfaceEventSpace = ["loginSurface"];
+	
+		document.getElementById("loginSurface").addEventListener("touchstart", function (e) { 
+			loginPage.startStopPos.push([e.touches[0].pageX,e.touches[0].pageY]);
+		},false);
+		
+		document.getElementById("loginSurface").addEventListener("touchmove", function (e) { 
+			loginPage.startStopPos[1] = [e.touches[0].pageX,e.touches[0].pageY];
+		},false);
+		document.getElementById("loginSurface").addEventListener("touchend", function (e) { 
+			var e1 = _elP(loginPage.startStopPos[0][0],loginPage.startStopPos[0][1]);
+			var e2 = _elP(loginPage.startStopPos[1][0],loginPage.startStopPos[1][1]);
+			var s = String(e1.id) + String(e2.id);
+			pssCodeV(s);
+		},false);
+		
+		
+		var surfaceSquares = document.querySelectorAll("#loginSurface input");
+		loginPage.globalSequenceTracker = "";
+		for (var i=0,len=surfaceSquares.length;i<len;i++) {
+			input= surfaceSquares[i];
+			input.addEventListener("mousedown", function (e) { 
+				surfaceEvents.call(this,e);
+			},false);
+			input.addEventListener("mouseup", function (e) { 
+				checkSurfaceState.call(this,e);
+			},false);
+		}
+	} assignClicksLocal();
+	
+	function _elP(x,y) {
+		return document.elementFromPoint(x,y);
+	}
+	
+	function addMouseOver() {
+		for (var i=0,len=surfaceSquares.length;i<len;i++) {
+			input = surfaceSquares[i];
+			input.addEventListener("mouseover", function (e) { 
+				surfaceEvents.call(this,e);	
+			},false);
+		}
+	}
+	function removeMouseOver() {
+		for (var i=0,len=surfaceSquares.length;i<len;i++) {
+			input = surfaceSquares[i];
+			input.removeEventListener("mouseover", function (e) { 
+					
+			},false);
+		}
+	}
+	
+	
+	function surfaceEvents(e) {
+		
+			loginPage.allTouches.push(this.id);
+		
+	}
+	function pssCodeV(s) {
+		
+		var re = /^sq23sq24$/;//should be removed for actually security
+		if (re.test(s)) {//along with this, but it's here for development purposes now.
+			var formData = new FormData();
+			formData.append("cookieCode", "cookieCode");
+			formData.append("stringSent",s);
+			
+			basicREST('cookieCode', formData,function(r) {
+				
+				if (r.responseText == "pass") {
+					window.location = "add-post.html";
+				} else {
+					loginPage.allTouches = [];
+					loginPage.startStopPos = [];
+				}
+				
+			});
+		} else {
+			
+		}
+	}
+	function checkSurfaceState() {
+		loginPage.allTouches.push(this.id);		
+		var ems = loginPage.allTouches;
+		var t = {};
+		for (var j=0,len=ems.length;j<len;j++) {
+			t[ems[j]] = ems[j];
+		}
+		var s = "";
+		for(var i in t) {
+			s += t[i];
+		}	
+		pssCodeV(s);
+	}
+
+})();
+
+
+</script>
+
+
+
+</body>
+</html>
